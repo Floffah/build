@@ -40,6 +40,92 @@
             },
             "type": "object"
         },
+        "SnowpackBuildCommand": {
+            "properties": {
+                "alternateConfig": {
+                    "description": "Relative path to the alternate config",
+                    "type": "string"
+                },
+                "dontUsePackagePrefix": {
+                    "description": "Enable if you dont want to prefix this with the package prefix",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "Name of the build",
+                    "type": "string"
+                },
+                "package": {
+                    "description": "The name of the package/workspace to give yarn",
+                    "type": "string"
+                },
+                "runInEnvironments": {
+                    "description": "Environments to run in",
+                    "items": {
+                        "enum": [
+                            "dev",
+                            "prod"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "description": "The type of build",
+                    "enum": [
+                        "snowpack"
+                    ],
+                    "type": "string"
+                },
+                "useAlternateConfig": {
+                    "description": "Whether or not to use an alternate config",
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "StorybookBuildCommand": {
+            "properties": {
+                "dontUsePackagePrefix": {
+                    "description": "Enable if you dont want to prefix this with the package prefix",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "Name of the build",
+                    "type": "string"
+                },
+                "out": {
+                    "description": "The out directory to pass in production mode",
+                    "type": "string"
+                },
+                "package": {
+                    "description": "The name of the package/workspace to give yarn",
+                    "type": "string"
+                },
+                "port": {
+                    "description": "The port to use in development mode",
+                    "type": "number"
+                },
+                "runInEnvironments": {
+                    "description": "Environments to run in",
+                    "items": {
+                        "enum": [
+                            "dev",
+                            "prod"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "description": "The type of build",
+                    "enum": [
+                        "storybook"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "TSBuildCommand": {
             "description": "Typescript build information",
             "properties": {
@@ -106,6 +192,12 @@
                     },
                     {
                         "$ref": "#/definitions/CustomBuildCommand"
+                    },
+                    {
+                        "$ref": "#/definitions/SnowpackBuildCommand"
+                    },
+                    {
+                        "$ref": "#/definitions/StorybookBuildCommand"
                     }
                 ]
             },

@@ -20,7 +20,7 @@ export default interface BuildConfig {
     packagePrefix: string;
 }
 
-export type Command = TSBuildCommand | CustomBuildCommand;
+export type Command = TSBuildCommand | CustomBuildCommand | SnowpackBuildCommand | StorybookBuildCommand;
 
 /**
  * Base build command
@@ -28,12 +28,6 @@ export type Command = TSBuildCommand | CustomBuildCommand;
 export interface BuildCommand {
     /**
      * The type of build
-     * Currently implemented:
-     *  - typescript
-     *  - custom
-     * Unimplemented:
-     *  - snowpack
-     *  - storybook
      */
     type: "typescript" | "custom" | "snowpack" | "storybook";
     /**
@@ -81,4 +75,34 @@ export interface CustomBuildCommand extends BuildCommand {
      * The command to run in that workspace
      */
     command: string;
+}
+
+export interface SnowpackBuildCommand extends BuildCommand {
+    /**
+     * The type of build
+     */
+    type: "snowpack"
+    /**
+     * Whether or not to use an alternate config
+     */
+    useAlternateConfig: boolean;
+    /**
+     * Relative path to the alternate config
+     */
+    alternateConfig: string;
+}
+
+export interface StorybookBuildCommand extends BuildCommand {
+    /**
+     * The type of build
+     */
+    type: "storybook";
+    /**
+     * The port to use in development mode
+     */
+    port?: number;
+    /**
+     * The out directory to pass in production mode
+     */
+    out?: string;
 }
