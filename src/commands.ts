@@ -26,7 +26,7 @@ export function buildCommands(
                 (cmd.runInEnvironments ?? ["dev", "prod"]).includes("prod")
             ) {
                 commands.push({
-                    command: `${b(cmd.package, cmd.dontUsePackagePrefix,)} ${cmd.command}`,
+                    command: `${b(cmd.package, cmd.dontUsePackagePrefix,)} ${cmd.devcommand}`,
                     name: `${prefix}${cmd.package}`,
                 });
             }
@@ -72,6 +72,18 @@ export function buildCommands(
             } else if (!devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("prod")) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix)} build-storybook -o ${cmd.out ?? "docs"}`,
+                    name: `${prefix}${cmd.package}`,
+                })
+            }
+        } else if(cmd.type === "next") {
+            if (devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("dev")) {
+                commands.push({
+                    command: `${b(cmd.package, cmd.dontUsePackagePrefix)} next dev -p ${cmd.port ?? 6006}`,
+                    name: `${prefix}${cmd.package}`,
+                })
+            } else if (!devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("prod")) {
+                commands.push({
+                    command: `${b(cmd.package, cmd.dontUsePackagePrefix)} next build`,
                     name: `${prefix}${cmd.package}`,
                 })
             }

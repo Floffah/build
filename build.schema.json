@@ -4,7 +4,11 @@
         "CustomBuildCommand": {
             "properties": {
                 "command": {
-                    "description": "The command to run in that workspace",
+                    "description": "The command to run in that workspace while in production mode",
+                    "type": "string"
+                },
+                "devcommand": {
+                    "description": "The command to run in that workspace while in development mode",
                     "type": "string"
                 },
                 "dontUsePackagePrefix": {
@@ -34,6 +38,46 @@
                     "description": "The type of build",
                     "enum": [
                         "custom"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "NextBuildCommand": {
+            "properties": {
+                "dontUsePackagePrefix": {
+                    "description": "Enable if you dont want to prefix this with the package prefix",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "Name of the build",
+                    "type": "string"
+                },
+                "package": {
+                    "description": "The name of the package/workspace to give yarn",
+                    "type": "string"
+                },
+                "port": {
+                    "default": 3000,
+                    "description": "Port to use in development mode",
+                    "type": "number"
+                },
+                "runInEnvironments": {
+                    "description": "Environments to run in",
+                    "items": {
+                        "enum": [
+                            "dev",
+                            "prod"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "description": "The type of build",
+                    "enum": [
+                        "next"
                     ],
                     "type": "string"
                 }
@@ -102,6 +146,7 @@
                     "type": "string"
                 },
                 "port": {
+                    "default": 6006,
                     "description": "The port to use in development mode",
                     "type": "number"
                 },
@@ -198,6 +243,9 @@
                     },
                     {
                         "$ref": "#/definitions/StorybookBuildCommand"
+                    },
+                    {
+                        "$ref": "#/definitions/NextBuildCommand"
                     }
                 ]
             },

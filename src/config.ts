@@ -20,7 +20,7 @@ export default interface BuildConfig {
     packagePrefix: string;
 }
 
-export type Command = TSBuildCommand | CustomBuildCommand | SnowpackBuildCommand | StorybookBuildCommand;
+export type Command = TSBuildCommand | CustomBuildCommand | SnowpackBuildCommand | StorybookBuildCommand | NextBuildCommand;
 
 /**
  * Base build command
@@ -29,7 +29,7 @@ export interface BuildCommand {
     /**
      * The type of build
      */
-    type: "typescript" | "custom" | "snowpack" | "storybook";
+    type: "typescript" | "custom" | "snowpack" | "storybook" | "next";
     /**
      * Environments to run in
      */
@@ -72,9 +72,13 @@ export interface CustomBuildCommand extends BuildCommand {
      */
     type: "custom";
     /**
-     * The command to run in that workspace
+     * The command to run in that workspace while in production mode
      */
     command: string;
+    /**
+     * The command to run in that workspace while in development mode
+     */
+    devcommand?: string;
 }
 
 export interface SnowpackBuildCommand extends BuildCommand {
@@ -99,10 +103,20 @@ export interface StorybookBuildCommand extends BuildCommand {
     type: "storybook";
     /**
      * The port to use in development mode
+     * @TJS-default 6006
      */
     port?: number;
     /**
      * The out directory to pass in production mode
      */
     out?: string;
+}
+
+export interface NextBuildCommand extends BuildCommand {
+    type: "next"
+    /**
+     * Port to use in development mode
+     * @TJS-default 3000
+     */
+    port: number;
 }
