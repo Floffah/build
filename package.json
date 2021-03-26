@@ -1,11 +1,11 @@
 {
   "name": "@floffah/build",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Small cli tool for building monorepos when you are lazy",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "build": "dist/build.js"
+    "build": "./bin/build"
   },
   "repository": "https://github.com/Floffah/build",
   "author": "Floffah <therealfloffah@gmail.com>",
@@ -31,7 +31,8 @@
     "dist",
     "build.schema.json",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "bin"
   ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
