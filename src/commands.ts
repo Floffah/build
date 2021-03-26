@@ -19,7 +19,7 @@ export function buildCommands(
             ) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix,)} ${cmd.command}`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 });
             } else if (
                 !devmode &&
@@ -27,7 +27,7 @@ export function buildCommands(
             ) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix,)} ${cmd.devcommand}`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 });
             }
         } else if (cmd.type === "typescript") {
@@ -40,7 +40,7 @@ export function buildCommands(
             ) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix,)} tsc${doConf} -w`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 });
             } else if (
                 !devmode &&
@@ -48,43 +48,43 @@ export function buildCommands(
             ) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix,)} tsc${doConf}`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 });
             }
         } else if (cmd.type === "snowpack") {
             if (devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("dev")) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix)} snowpack dev`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 })
             } else if (!devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("prod")) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix)} snowpack build`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 })
             }
         } else if (cmd.type === "storybook") {
             if (devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("dev")) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix)} start-storybook -p ${cmd.port ?? 6006}`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 })
             } else if (!devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("prod")) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix)} build-storybook -o ${cmd.out ?? "docs"}`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 })
             }
         } else if(cmd.type === "next") {
             if (devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("dev")) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix)} next dev -p ${cmd.port ?? 6006}`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 })
             } else if (!devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("prod")) {
                 commands.push({
                     command: `${b(cmd.package, cmd.dontUsePackagePrefix)} next build`,
-                    name: `${prefix}${cmd.package}`,
+                    name: cmd.id ?? cmd.package,
                 })
             }
         }
