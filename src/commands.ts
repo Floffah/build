@@ -78,7 +78,7 @@ export function buildCommands(
         } else if(cmd.type === "next") {
             if (devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("dev")) {
                 commands.push({
-                    command: `${b(cmd.package, cmd.dontUsePackagePrefix)} next dev -p ${cmd.port ?? 6006}`,
+                    command: `${b(cmd.package, cmd.dontUsePackagePrefix)} next dev -p ${cmd.port ?? 3000}`,
                     name: cmd.id ?? cmd.package,
                 })
             } else if (!devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("prod")) {
