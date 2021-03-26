@@ -1,0 +1,34 @@
+{
+  "name": "@floffah/build",
+  "version": "0.0.1",
+  "description": "Small cli tool for building monorepos when you are lazy",
+  "main": "dist/index.js",
+  "bin": {
+    "build": "dist/build.js"
+  },
+  "repository": "https://github.com/Floffah/build",
+  "author": "Floffah <therealfloffah@gmail.com>",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/Floffah/build#readme",
+  "bugs": {
+    "url": "https://github.com/Floffah/build/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.36",
+    "typescript": "^4.2.3",
+    "typescript-json-schema": "^0.50.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^7.2.0",
+    "source-map-support": "^0.5.19"
+  },
+  "scripts": {
+    "prepack": "npx typescript-json-schema src/config.ts BuildConfig -o build.schema.json && npx tsc"
+  },
+  "files": [
+    "dist",
+    "build.schema.json",
+    "LICENSE"
+  ]
+}

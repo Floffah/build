@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "CustomBuildCommand": {
+      "properties": {
+        "command": {
+          "description": "The command to run in that workspace",
+          "type": "string"
+        },
+        "dontUsePackagePrefix": {
+          "description": "Enable if you dont want to prefix this with the package prefix",
+          "type": "boolean"
+        },
+        "id": {
+          "description": "Name of the build",
+          "type": "string"
+        },
+        "package": {
+          "description": "The name of the package/workspace to give yarn",
+          "type": "string"
+        },
+        "runInEnvironments": {
+          "description": "Environments to run in",
+          "items": {
+            "enum": [
+              "dev",
+              "prod"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "The type of build",
+          "enum": [
+            "custom"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TSBuildCommand": {
+      "description": "Typescript build information",
+      "properties": {
+        "alternateConfig": {
+          "description": "Relative path to the alternate config",
+          "type": "string"
+        },
+        "dontUsePackagePrefix": {
+          "description": "Enable if you dont want to prefix this with the package prefix",
+          "type": "boolean"
+        },
+        "id": {
+          "description": "Name of the build",
+          "type": "string"
+        },
+        "package": {
+          "description": "The name of the package/workspace to give yarn",
+          "type": "string"
+        },
+        "runInEnvironments": {
+          "description": "Environments to run in",
+          "items": {
+            "enum": [
+              "dev",
+              "prod"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "The type of build",
+          "enum": [
+            "typescript"
+          ],
+          "type": "string"
+        },
+        "useAlternateConfig": {
+          "description": "Whether or not to use an alternate config",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "properties": {
+    "allowedTargets": {
+      "description": "Platforms to support and build commands for",
+      "items": {
+        "enum": [
+          "linux",
+          "win"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "commands": {
+      "description": "The commands to run.\nWill run in the order found.",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/TSBuildCommand"
+          },
+          {
+            "$ref": "#/definitions/CustomBuildCommand"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    "enableTerminal": {
+      "default": false,
+      "description": "Whether or not to enable the windows terminal when on windows and in dev mode",
+      "type": "boolean"
+    },
+    "packagePrefix": {
+      "default": "",
+      "description": "What to prefix package names with",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
+
