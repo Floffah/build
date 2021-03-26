@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Small cli tool for building monorepos when you are lazy",
   "main": "dist/index.js",
+  "type": "dist/index.d.ts",
   "bin": {
     "build": "dist/build.js"
   },
