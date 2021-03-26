@@ -28,7 +28,8 @@
     "baseUrl": ".",
     "strict": true,
     "alwaysStrict": true,
-    "pretty": true
+    "pretty": true,
+    "declaration": true
   },
   "exclude": [
     "node_modules"

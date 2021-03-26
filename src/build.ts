@@ -9,9 +9,9 @@ import BuildConfig from "./config";
 
 program
     .version("0.0.1")
-    .name("Confuscript Project Builder")
+    .name("Build")
     .description(
-        "Command line tool for building all or individual confuscript build scripts for production or in a development file watching mode",
+        "Command line tool for building all or individual packages for production or in a development file watching mode (with windows terminal support)",
     );
 
 program
