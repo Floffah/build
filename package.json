@@ -30,5 +30,8 @@
     "dist",
     "build.schema.json",
     "LICENSE"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }
