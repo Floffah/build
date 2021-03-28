@@ -31,7 +31,7 @@ program
         }
         const config = JSON.parse(readFileSync(configpath, "utf-8"));
         let commands = buildCommands(config, false);
-        commands = commands.filter((v) => cmds.includes(v.id.toLowerCase()));
+        commands = commands.filter((v) => cmds.includes(v.id.toLowerCase())).sort((a,b) => cmds.indexOf(a.id.toLowerCase()) - cmds.indexOf(b.id.toLowerCase()));
         for (const cmd of commands) {
             if (cmd.id && (cmd.id && cmds.includes(cmd.id.toLowerCase()))) runCmd(cmd, options);
         }

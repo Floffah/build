@@ -1,6 +1,6 @@
 {
   "name": "@floffah/build",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Small cli tool for building monorepos when you are lazy",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
