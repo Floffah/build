@@ -102,6 +102,20 @@ export function buildCommands(
                     id: cmd.id,
                 })
             }
+        } else if (cmd.type === "esbuild") {
+            if (devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("dev")) {
+                commands.push({
+                    command: `${b(cmd.package, cmd.dontUsePackagePrefix)} node "${resolve(__dirname, "build")}" esbuild '${JSON.stringify(cmd.options)}' --dev`,
+                    name: cmd.id ?? cmd.package,
+                    id: cmd.id,
+                })
+            } else if (!devmode && (cmd.runInEnvironments ?? ["dev", "prod"]).includes("prod")) {
+                commands.push({
+                    command: `${b(cmd.package, cmd.dontUsePackagePrefix)} node ${resolve(__dirname, "build")} esbuild '${JSON.stringify(cmd.options)}'`,
+                    name: cmd.id ?? cmd.package,
+                    id: cmd.id,
+                })
+            }
         }
     }
 

@@ -6,6 +6,7 @@ import {buildCommands, runCmd} from "./commands";
 import chalk from "chalk";
 import {ChildProcess, spawn} from "child_process";
 import BuildConfig from "./config";
+import {BuildOptions} from "esbuild";
 
 program
     .version("0.0.1")
@@ -31,7 +32,7 @@ program
         }
         const config = JSON.parse(readFileSync(configpath, "utf-8"));
         let commands = buildCommands(config, false);
-        commands = commands.filter((v) => cmds.includes(v.id.toLowerCase())).sort((a,b) => cmds.indexOf(a.id.toLowerCase()) - cmds.indexOf(b.id.toLowerCase()));
+        commands = commands.filter((v) => cmds.includes(v.id.toLowerCase())).sort((a, b) => cmds.indexOf(a.id.toLowerCase()) - cmds.indexOf(b.id.toLowerCase()));
         for (const cmd of commands) {
             if (cmd.id && (cmd.id && cmds.includes(cmd.id.toLowerCase()))) runCmd(cmd, options);
         }
@@ -152,6 +153,36 @@ program
             process.on("exit", () => end());
             process.on("SIGINT", () => end());
         }
+    });
+
+program.command("esbuild <config>")
+    .description("For running esbuild using a config instead of stuff")
+    .option("-d, --dev", "Set it in dev mode")
+    .action((config, options) => {
+        config = config.replace(/(^'|'$)/g, "")
+        console.log(config);
+        import("esbuild").then((esbuild) => {
+            const c: {[k:string]:any} & BuildOptions = {
+                watch: options.dev && options.dev === true,
+                color: true,
+                logLevel: "info",
+                ...JSON.parse(config)
+            };
+            for (const key of Object.keys(c)) {
+                const value = c[key];
+                if (typeof value === "string" && (value.startsWith("./") || value.startsWith("../"))) {
+                    c[key] = resolve(process.cwd(), value);
+                } else if (Array.isArray(value)) {
+                    for (let i = 0; i < value.length; i++) {
+                        if (typeof value[i] === "string" && (value[i].startsWith("./") || value[i].startsWith("../"))) {
+                            value[i] = resolve(process.cwd(), value[i]);
+                        }
+                    }
+                }
+            }
+            esbuild.build(c).catch(() => {
+            });
+        });
     });
 
 program.parse(process.argv);

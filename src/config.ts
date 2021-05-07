@@ -1,3 +1,5 @@
+import {BuildOptions} from "esbuild";
+
 export default interface BuildConfig {
     /**
      * Whether or not to enable the windows terminal when on windows and in dev mode
@@ -17,10 +19,21 @@ export default interface BuildConfig {
      * What to prefix package names with
      * @TJS-default ""
      */
-    packagePrefix: string;
+    packagePrefix?: string;
+    /**
+     * Common options to use
+     * @TJS-default {}
+     */
+    common?: {
+        /**
+         * Common esbuild options
+         * @TJS-default {}
+         */
+        esbuild?: BuildOptions
+    }
 }
 
-export type Command = TSBuildCommand | CustomBuildCommand | SnowpackBuildCommand | StorybookBuildCommand | NextBuildCommand;
+export type Command = TSBuildCommand | CustomBuildCommand | SnowpackBuildCommand | StorybookBuildCommand | NextBuildCommand | ESBuildCommand;
 
 /**
  * Base build command
@@ -29,7 +42,7 @@ export interface BuildCommand {
     /**
      * The type of build
      */
-    type: "typescript" | "custom" | "snowpack" | "storybook" | "next";
+    type: "typescript" | "custom" | "snowpack" | "storybook" | "next" | "esbuild";
     /**
      * Environments to run in
      */
@@ -119,4 +132,18 @@ export interface NextBuildCommand extends BuildCommand {
      * @TJS-default 3000
      */
     port: number;
+}
+
+export interface ESBuildCommand extends BuildCommand {
+    type: "esbuild";
+    /**
+     * Whether or not to use the common options
+     * @TJS-default true
+     */
+    useCommon?: boolean;
+    /**
+     * Other build options to use.
+     * All properties set here will override common options and the in/out property
+     */
+    options: BuildOptions
 }

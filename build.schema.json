@@ -1,6 +1,270 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
+        "BuildOptions": {
+            "properties": {
+                "absWorkingDir": {
+                    "type": "string"
+                },
+                "allowOverwrite": {
+                    "type": "boolean"
+                },
+                "assetNames": {
+                    "type": "string"
+                },
+                "banner": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object"
+                },
+                "bundle": {
+                    "type": "boolean"
+                },
+                "charset": {
+                    "$ref": "#/definitions/Charset"
+                },
+                "chunkNames": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "boolean"
+                },
+                "conditions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "define": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object"
+                },
+                "entryNames": {
+                    "type": "string"
+                },
+                "entryPoints": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "$ref": "#/definitions/Record<string,string>"
+                        }
+                    ]
+                },
+                "external": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "footer": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object"
+                },
+                "format": {
+                    "$ref": "#/definitions/Format"
+                },
+                "globalName": {
+                    "type": "string"
+                },
+                "incremental": {
+                    "type": "boolean"
+                },
+                "inject": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "jsxFactory": {
+                    "type": "string"
+                },
+                "jsxFragment": {
+                    "type": "string"
+                },
+                "keepNames": {
+                    "type": "boolean"
+                },
+                "legalComments": {
+                    "enum": [
+                        "eof",
+                        "external",
+                        "inline",
+                        "linked",
+                        "none"
+                    ],
+                    "type": "string"
+                },
+                "loader": {
+                    "additionalProperties": {
+                        "enum": [
+                            "base64",
+                            "binary",
+                            "css",
+                            "dataurl",
+                            "default",
+                            "file",
+                            "js",
+                            "json",
+                            "jsx",
+                            "text",
+                            "ts",
+                            "tsx"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "object"
+                },
+                "logLevel": {
+                    "$ref": "#/definitions/LogLevel"
+                },
+                "logLimit": {
+                    "type": "number"
+                },
+                "mainFields": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "metafile": {
+                    "type": "boolean"
+                },
+                "minify": {
+                    "type": "boolean"
+                },
+                "minifyIdentifiers": {
+                    "type": "boolean"
+                },
+                "minifySyntax": {
+                    "type": "boolean"
+                },
+                "minifyWhitespace": {
+                    "type": "boolean"
+                },
+                "nodePaths": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "outExtension": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object"
+                },
+                "outbase": {
+                    "type": "string"
+                },
+                "outdir": {
+                    "type": "string"
+                },
+                "outfile": {
+                    "type": "string"
+                },
+                "platform": {
+                    "$ref": "#/definitions/Platform"
+                },
+                "plugins": {
+                    "items": {
+                        "$ref": "#/definitions/Plugin"
+                    },
+                    "type": "array"
+                },
+                "preserveSymlinks": {
+                    "type": "boolean"
+                },
+                "publicPath": {
+                    "type": "string"
+                },
+                "pure": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "resolveExtensions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "sourceRoot": {
+                    "type": "string"
+                },
+                "sourcemap": {
+                    "enum": [
+                        "both",
+                        "external",
+                        false,
+                        "inline",
+                        true
+                    ]
+                },
+                "sourcesContent": {
+                    "type": "boolean"
+                },
+                "splitting": {
+                    "type": "boolean"
+                },
+                "stdin": {
+                    "$ref": "#/definitions/StdinOptions"
+                },
+                "target": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "treeShaking": {
+                    "enum": [
+                        "ignore-annotations",
+                        true
+                    ]
+                },
+                "tsconfig": {
+                    "type": "string"
+                },
+                "watch": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/WatchMode"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ]
+                },
+                "write": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "Charset": {
+            "enum": [
+                "ascii",
+                "utf8"
+            ],
+            "type": "string"
+        },
         "CustomBuildCommand": {
             "properties": {
                 "command": {
@@ -44,6 +308,86 @@
             },
             "type": "object"
         },
+        "ESBuildCommand": {
+            "properties": {
+                "dontUsePackagePrefix": {
+                    "description": "Enable if you dont want to prefix this with the package prefix",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "Name of the build",
+                    "type": "string"
+                },
+                "options": {
+                    "$ref": "#/definitions/BuildOptions",
+                    "description": "Other build options to use.\nAll properties set here will override common options and the in/out property"
+                },
+                "package": {
+                    "description": "The name of the package/workspace to give yarn",
+                    "type": "string"
+                },
+                "runInEnvironments": {
+                    "description": "Environments to run in",
+                    "items": {
+                        "enum": [
+                            "dev",
+                            "prod"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "description": "The type of build",
+                    "enum": [
+                        "esbuild"
+                    ],
+                    "type": "string"
+                },
+                "useCommon": {
+                    "default": true,
+                    "description": "Whether or not to use the common options",
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "Format": {
+            "enum": [
+                "cjs",
+                "esm",
+                "iife"
+            ],
+            "type": "string"
+        },
+        "Loader": {
+            "enum": [
+                "base64",
+                "binary",
+                "css",
+                "dataurl",
+                "default",
+                "file",
+                "js",
+                "json",
+                "jsx",
+                "text",
+                "ts",
+                "tsx"
+            ],
+            "type": "string"
+        },
+        "LogLevel": {
+            "enum": [
+                "debug",
+                "error",
+                "info",
+                "silent",
+                "verbose",
+                "warning"
+            ],
+            "type": "string"
+        },
         "NextBuildCommand": {
             "properties": {
                 "dontUsePackagePrefix": {
@@ -82,6 +426,28 @@
                     "type": "string"
                 }
             },
+            "type": "object"
+        },
+        "Platform": {
+            "enum": [
+                "browser",
+                "neutral",
+                "node"
+            ],
+            "type": "string"
+        },
+        "Plugin": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "setup": {
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "Record<string,string>": {
             "type": "object"
         },
         "SnowpackBuildCommand": {
@@ -123,6 +489,23 @@
                 "useAlternateConfig": {
                     "description": "Whether or not to use an alternate config",
                     "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "StdinOptions": {
+            "properties": {
+                "contents": {
+                    "type": "string"
+                },
+                "loader": {
+                    "$ref": "#/definitions/Loader"
+                },
+                "resolveDir": {
+                    "type": "string"
+                },
+                "sourcefile": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -214,6 +597,14 @@
                 }
             },
             "type": "object"
+        },
+        "WatchMode": {
+            "properties": {
+                "onRebuild": {
+                    "type": "object"
+                }
+            },
+            "type": "object"
         }
     },
     "properties": {
@@ -246,10 +637,27 @@
                     },
                     {
                         "$ref": "#/definitions/NextBuildCommand"
+                    },
+                    {
+                        "$ref": "#/definitions/ESBuildCommand"
                     }
                 ]
             },
             "type": "array"
+        },
+        "common": {
+            "default": {
+            },
+            "description": "Common options to use",
+            "properties": {
+                "esbuild": {
+                    "$ref": "#/definitions/BuildOptions",
+                    "default": {
+                    },
+                    "description": "Common esbuild options"
+                }
+            },
+            "type": "object"
         },
         "enableTerminal": {
             "default": false,
