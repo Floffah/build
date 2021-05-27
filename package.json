@@ -1,6 +1,6 @@
 {
   "name": "@floffah/build",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Small cli tool for building monorepos when you are lazy",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,18 +15,20 @@
     "url": "https://github.com/Floffah/build/issues"
   },
   "devDependencies": {
-    "@types/node": "^15.0.2",
-    "npm-check-updates": "^11.5.10",
-    "typescript": "^4.2.4",
-    "typescript-json-schema": "^0.50.0"
+    "@types/node": "^15.6.1",
+    "estrella": "^1.4.1",
+    "npm-check-updates": "^11.5.13",
+    "typescript": "^4.3.2",
+    "typescript-json-schema": "^0.50.1"
   },
   "dependencies": {
     "chalk": "^4.1.1",
     "commander": "^7.2.0",
-    "source-map-support": "^0.5.19"
+    "execa": "^5.0.0"
   },
   "scripts": {
-    "prepack": "npx typescript-json-schema src/config.ts BuildConfig -o build.schema.json && npx tsc"
+    "prepack": "npx typescript-json-schema src/config.ts BuildConfig -o build.schema.json && node build.js && tsc",
+    "tbuild": "node dist/build.js"
   },
   "files": [
     "dist",
@@ -40,6 +42,7 @@
     "access": "public"
   },
   "optionalDependencies": {
-    "esbuild": "^0.11.19"
+    "esbuild": "^0.12.4",
+    "estrella": "^1.4.1"
   }
 }

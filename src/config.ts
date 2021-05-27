@@ -1,5 +1,3 @@
-import {BuildOptions} from "esbuild";
-
 export default interface BuildConfig {
     /**
      * Whether or not to enable the windows terminal when on windows and in dev mode
@@ -20,20 +18,15 @@ export default interface BuildConfig {
      * @TJS-default ""
      */
     packagePrefix?: string;
-    /**
-     * Common options to use
-     * @TJS-default {}
-     */
-    common?: {
-        /**
-         * Common esbuild options
-         * @TJS-default {}
-         */
-        esbuild?: BuildOptions
-    }
 }
 
-export type Command = TSBuildCommand | CustomBuildCommand | SnowpackBuildCommand | StorybookBuildCommand | NextBuildCommand | ESBuildCommand;
+export type Command =
+    TSBuildCommand
+    | CustomBuildCommand
+    | SnowpackBuildCommand
+    | StorybookBuildCommand
+    | NextBuildCommand
+    | ESBuildCommand;
 
 /**
  * Base build command
@@ -70,13 +63,9 @@ export interface TSBuildCommand extends BuildCommand {
      */
     type: "typescript";
     /**
-     * Whether or not to use an alternate config
+     * Relative path to an alternate config
      */
-    useAlternateConfig: boolean;
-    /**
-     * Relative path to the alternate config
-     */
-    alternateConfig: string;
+    alternateConfig?: string;
 }
 
 export interface CustomBuildCommand extends BuildCommand {
@@ -100,11 +89,7 @@ export interface SnowpackBuildCommand extends BuildCommand {
      */
     type: "snowpack"
     /**
-     * Whether or not to use an alternate config
-     */
-    useAlternateConfig: boolean;
-    /**
-     * Relative path to the alternate config
+     * Relative path to an alternate config
      */
     alternateConfig: string;
 }
@@ -137,13 +122,24 @@ export interface NextBuildCommand extends BuildCommand {
 export interface ESBuildCommand extends BuildCommand {
     type: "esbuild";
     /**
-     * Whether or not to use the common options
-     * @TJS-default true
+     * File(s) to process
      */
-    useCommon?: boolean;
+    in: string | string[];
     /**
-     * Other build options to use.
-     * All properties set here will override common options and the in/out property
+     * File to bundle to or directory to bundle to.
+     * Treated as a file when {@link ESBuildCommand.in} is a string, treated as a directory when {@link ESBuildCommand.in} is an array of strings
+     * @TJS-default "dist"
      */
-    options: BuildOptions
+    out?: string;
+    /**
+     * Override what package to use.
+     * If this isn't defined, build will use esbuild if estrella isn't installed, and use estrella if it is installed.
+     */
+    use?: "esbuild"|"estrella";
+    /**
+     * Path to a config file.
+     * Can be a json or js file.
+     * @TJS-required
+     */
+    config: string;
 }

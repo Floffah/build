@@ -29,7 +29,8 @@
     "strict": true,
     "alwaysStrict": true,
     "pretty": true,
-    "declaration": true
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
   "exclude": [
     "node_modules"
