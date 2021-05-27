@@ -46,6 +46,10 @@
         },
         "ESBuildCommand": {
             "properties": {
+                "config": {
+                    "description": "Path to a config file.\nCan be a json or js file.",
+                    "type": "string"
+                },
                 "dontUsePackagePrefix": {
                     "description": "Enable if you dont want to prefix this with the package prefix",
                     "type": "boolean"
@@ -92,6 +96,14 @@
                     "description": "The type of build",
                     "enum": [
                         "esbuild"
+                    ],
+                    "type": "string"
+                },
+                "use": {
+                    "description": "Override what package to use.\nIf this isn't defined, build will use esbuild if estrella isn't installed, and use estrella if it is installed.",
+                    "enum": [
+                        "esbuild",
+                        "estrella"
                     ],
                     "type": "string"
                 }
@@ -141,7 +153,7 @@
         "SnowpackBuildCommand": {
             "properties": {
                 "alternateConfig": {
-                    "description": "Relative path to the alternate config",
+                    "description": "Relative path to an alternate config",
                     "type": "string"
                 },
                 "dontUsePackagePrefix": {
@@ -173,10 +185,6 @@
                         "snowpack"
                     ],
                     "type": "string"
-                },
-                "useAlternateConfig": {
-                    "description": "Whether or not to use an alternate config",
-                    "type": "boolean"
                 }
             },
             "type": "object"
@@ -229,7 +237,7 @@
             "description": "Typescript build information",
             "properties": {
                 "alternateConfig": {
-                    "description": "Relative path to the alternate config",
+                    "description": "Relative path to an alternate config",
                     "type": "string"
                 },
                 "dontUsePackagePrefix": {
@@ -261,10 +269,6 @@
                         "typescript"
                     ],
                     "type": "string"
-                },
-                "useAlternateConfig": {
-                    "description": "Whether or not to use an alternate config",
-                    "type": "boolean"
                 }
             },
             "type": "object"
